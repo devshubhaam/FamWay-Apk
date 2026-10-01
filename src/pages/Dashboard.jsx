@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Copy } from 'lucide-react';
-import { profile, stats as s, transactions, imapConfigured } from '../data/profile';
+import { stats as s, transactions, imapConfigured } from '../data/profile';
+import { useProfile } from '../hooks/useProfile';
 import { inr, greeting } from '../utils/format';
 import ActivityChart from '../components/ActivityChart';
 import TransactionsTable from '../components/TransactionsTable';
 export default function Dashboard() {
+  const profile = useProfile();
   const [days, setDays] = useState(7);
   const activity = useMemo(() => Array.from({ length: days }, (_, i) => { const d = new Date(Date.now() - (days - 1 - i) * 864e5);
     return { date: d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' }), requests: 0, revenue: 0 }; }), [days]);
