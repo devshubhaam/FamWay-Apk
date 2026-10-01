@@ -1,9 +1,8 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import AppLayout from './layouts/AppLayout';
-import Dashboard from './pages/Dashboard';
-import Placeholder from './pages/Placeholder';
-const PAGES = { transactions: 'Transactions', 'payment-links': 'Payment Links', 'api-keys': 'API Keys', webhooks: 'Webhooks', integrations: 'Integrations', profile: 'Profile', docs: 'Documentation', status: 'System Status' };
-export default function App() {
-  return (<Routes><Route element={<AppLayout />}><Route index element={<Dashboard />} />
-    {Object.entries(PAGES).map(([p, t]) => <Route key={p} path={p} element={<Placeholder title={t} />} />)}</Route><Route path="*" element={<Navigate to="/" />} /></Routes>);
-}
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { HashRouter } from 'react-router-dom';
+import App from './App';
+import './styles/original.css';
+import './styles/mobile.css';
+createRoot(document.getElementById('root')).render(<React.StrictMode><HashRouter><App /></HashRouter></React.StrictMode>);
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(() => {});
