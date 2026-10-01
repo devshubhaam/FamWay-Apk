@@ -1,0 +1,13 @@
+.main-content .card-title{font-size:16px;font-weight:600;color:var(--color-ink);letter-spacing:-0.2px;justify-content:flex-start!important}
+@media (prefers-reduced-motion:reduce){.main-content .dash-anim-up,.main-content .dash-anim-right{opacity:1!important;animation:none!important}}
+.main-content .avatar-row{display:flex;align-items:center;gap:24px}
+.main-content .avatar-preview{width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid var(--color-primary);background:var(--surface-page);box-shadow:0 4px 12px rgba(37,99,235,0.15)}
+.main-content .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(2px);opacity:0;transition:opacity 0.2s ease}
+.main-content .profile-tabs{display:flex;gap:24px;border-bottom:1px solid var(--color-hairline);margin-bottom:24px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+.main-content .profile-tabs::-webkit-scrollbar{display:none}
+.main-content .tab-btn{background:none;border:none;font-size:15px;font-weight:600;color:var(--color-ink-mute);padding:14px 8px;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;display:flex;align-items:center;gap:8px;font-family:inherit}
+.main-content .tab-btn:hover{color:var(--color-ink)}
+.main-content .tab-btn.active{color:var(--color-primary);border-bottom-color:var(--color-primary)}
+.main-content .tab-pane{animation:fadeIn 0.3s ease}
+.main-content .tab-pane.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
