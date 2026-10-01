@@ -1,0 +1,95 @@
+/* Login / Register. Ported from the old login.css + register.css; everything is scoped under .fg-auth.
+   Global design tokens (--color-primary, --font ...) are reused when present, with the old values as fallback. */
+.fg-auth {
+  --a-primary: var(--color-primary, #2563eb);
+  --a-primary-deep: var(--color-primary-deep, #1d4ed8);
+  --a-glow: var(--color-primary-glow, rgba(37, 99, 235, 0.14));
+  --a-ink: var(--color-ink, #0f172a);
+  --a-ink-2: var(--color-ink-secondary, #334155);
+  --a-mute: var(--color-ink-mute, #64748b);
+  --a-mute-2: var(--color-ink-mute-2, #94a3b8);
+  --a-line: var(--color-hairline, #e2e8f0);
+  --a-danger: var(--color-danger-text, #dc2626);
+  --a-danger-bg: var(--color-danger-bg, #fee2e2);
+  --a-danger-line: var(--color-danger-border, #fca5a5);
+  display: flex; min-height: 100vh; min-height: 100dvh; background: #f6f8fb; color: var(--a-ink);
+  font-family: var(--font, "Poppins", system-ui, -apple-system, sans-serif); font-size: 14px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; box-sizing: border-box;
+}
+.fg-auth *, .fg-auth *::before, .fg-auth *::after { box-sizing: border-box; }
+.fg-auth input, .fg-auth button { font-family: inherit; }
+
+/* ---- left panel ---- */
+.fg-auth-side { display: none; flex: 0 0 460px; position: relative; overflow: hidden; padding: 48px 52px; flex-direction: column; justify-content: space-between;
+  background: linear-gradient(160deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%); }
+@media (min-width: 900px) { .fg-auth-side { display: flex; } }
+.fg-auth-side-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(59,130,246,.25) 0%, transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(16,185,129,.15) 0%, transparent 50%); }
+.fg-auth-side-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 40px 40px; }
+.fg-auth-side-content { position: relative; z-index: 1; animation: fg-auth-fade .8s ease both; }
+.fg-auth-side-logo { display: block; height: 30px; width: auto; object-fit: contain; margin-bottom: 52px; }
+.fg-auth-side-heading { font-size: 36px; font-weight: 800; line-height: 1.2; letter-spacing: -1px; color: #fff; margin-bottom: 18px; }
+.fg-auth-side-heading span { background: linear-gradient(90deg, #60a5fa, #34d399); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.fg-auth-side-desc { font-size: 15px; color: #94a3b8; line-height: 1.65; margin-bottom: 40px; }
+.fg-auth-features { list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; }
+.fg-auth-features li { display: flex; align-items: center; gap: 14px; font-size: 14px; color: #e2e8f0; }
+.fg-auth-feature-dot { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #34d399; background: rgba(52,211,153,.15); border: 1px solid rgba(52,211,153,.3); }
+.fg-auth-side-footer { position: relative; z-index: 1; font-size: 12px; color: #64748b; }
+.fg-auth-disclaimer { font-size: 11px; opacity: .85; margin-top: 4px; max-width: 320px; line-height: 1.4; }
+
+/* ---- right panel ---- */
+.fg-auth-main { flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 24px; overflow-y: auto; }
+.fg-auth-back { position: absolute; top: 24px; left: 24px; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--a-mute); text-decoration: none;
+  padding: 7px 12px; border-radius: 9px; border: 1px solid var(--a-line); background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.04); transition: color .15s, background .15s; }
+.fg-auth-back:hover { color: var(--a-ink); background: #f1f5f9; }
+.fg-auth-card { width: 100%; max-width: 440px; background: #fff; border: 1px solid var(--a-line); border-radius: 20px; padding: 38px 34px;
+  box-shadow: 0 12px 32px -4px rgba(15,23,42,.08), 0 4px 12px -2px rgba(15,23,42,.04); animation: fg-auth-up .6s cubic-bezier(.22,1,.36,1) both; }
+@media (max-width: 600px) {
+  .fg-auth-main { padding: 24px 16px 40px; justify-content: flex-start; }
+  .fg-auth-back { position: relative; top: auto; left: auto; align-self: flex-start; margin-bottom: 16px; }
+  .fg-auth-card { padding: 28px 20px; border-radius: 16px; }
+}
+.fg-auth-header { text-align: center; margin-bottom: 24px; }
+.fg-auth-card-logo { display: block; height: 28px; width: auto; margin: 0 auto 18px; object-fit: contain; filter: invert(1) hue-rotate(180deg); }
+.fg-auth-title { font-size: 22px; font-weight: 800; letter-spacing: -.5px; color: var(--a-ink); margin: 0 0 5px; }
+.fg-auth-subtitle { font-size: 14px; color: var(--a-mute); margin: 0; }
+
+/* ---- fields ---- */
+.fg-auth-group { margin-bottom: 14px; }
+.fg-auth-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.fg-auth-label { display: block; font-size: 13px; font-weight: 500; letter-spacing: .01em; color: var(--a-ink-2); }
+.fg-auth-input, .fg-auth-affix { width: 100%; border: 1px solid var(--a-line); border-radius: 10px; background: #f8fafc; color: var(--a-ink); transition: border-color .15s, background .15s, box-shadow .15s; }
+.fg-auth-input { padding: 11px 14px; font-size: 14px; outline: none; }
+.fg-auth-pw { position: relative; }
+.fg-auth-pw .fg-auth-input { padding-right: 44px; }
+.fg-auth-eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); display: flex; padding: 6px; border: 0; border-radius: 8px; background: none; color: var(--a-mute); cursor: pointer; }
+.fg-auth-eye:hover { color: var(--a-ink); }
+.fg-auth-affix { display: flex; align-items: center; }
+.fg-auth-prefix { padding: 11px 0 11px 14px; font-size: 14px; font-weight: 500; color: var(--a-mute); user-select: none; }
+.fg-auth-affix input { flex: 1; min-width: 0; width: 100%; padding: 11px 14px 11px 8px; border: 0; outline: none; background: transparent; font-size: 14px; color: var(--a-ink); }
+.fg-auth-input:focus, .fg-auth-affix:focus-within { border-color: var(--a-primary); background: #fff; box-shadow: 0 0 0 3px var(--a-glow); }
+.fg-auth ::placeholder { color: var(--a-mute-2); }
+.fg-auth-group.is-invalid .fg-auth-input, .fg-auth-group.is-invalid .fg-auth-affix { border-color: var(--a-danger); background: #fff; }
+.fg-auth-group.is-invalid .fg-auth-input:focus, .fg-auth-group.is-invalid .fg-auth-affix:focus-within { box-shadow: 0 0 0 3px rgba(220,38,38,.12); }
+.fg-auth-error { margin: 5px 0 0; font-size: 12px; color: var(--a-danger); }
+@media (max-width: 600px) { .fg-auth-input, .fg-auth-affix input { font-size: 16px; } }
+
+/* ---- alerts, button, links ---- */
+.fg-auth-alert { display: flex; align-items: flex-start; gap: 8px; padding: 10px 14px; margin-bottom: 16px; border-radius: 10px; font-size: 13px; border: 1px solid; }
+.fg-auth-alert svg { flex-shrink: 0; margin-top: 2px; }
+.fg-auth-alert.is-error { background: var(--a-danger-bg); border-color: var(--a-danger-line); color: #991b1b; }
+.fg-auth-alert.is-success { background: #ecfdf5; border-color: #6ee7b7; color: #065f46; }
+.fg-auth-submit { width: 100%; margin-top: 6px; padding: 13px; display: flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 12px;
+  background: var(--a-primary); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(37,99,235,.3); transition: background .15s, box-shadow .15s; }
+.fg-auth-submit:hover:not(:disabled) { background: var(--a-primary-deep); box-shadow: 0 4px 16px rgba(37,99,235,.4); }
+.fg-auth-submit:disabled { opacity: .75; cursor: progress; }
+.fg-auth-spinner { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; animation: fg-auth-spin .7s linear infinite; }
+.fg-auth-switch { text-align: center; margin: 20px 0 0; font-size: 14px; color: var(--a-mute); }
+.fg-auth-switch a, .fg-auth-note a { color: var(--a-primary); font-weight: 600; text-decoration: none; }
+.fg-auth-switch a:hover, .fg-auth-note a:hover { text-decoration: underline; }
+.fg-auth-note { font-size: 12px; color: var(--a-mute-2); text-align: center; margin: 14px 0 0; line-height: 1.6; }
+.fg-auth a:focus-visible, .fg-auth button:focus-visible { outline: 2px solid var(--a-primary); outline-offset: 2px; }
+
+@keyframes fg-auth-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes fg-auth-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fg-auth-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .fg-auth-card, .fg-auth-side-content { animation: none; } .fg-auth-spinner { animation-duration: 1.6s; } }
