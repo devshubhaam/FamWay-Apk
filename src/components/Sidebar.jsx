@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { Home, LayoutDashboard, Receipt, Link2, KeyRound, Send, PlugZap, UserCircle, BookOpen, Activity, X, Copy } from 'lucide-react';
 import logo from '../assets/logo.png';
-import { profile } from '../data/profile';
+import { useProfile } from '../hooks/useProfile';
 const MAIN = [['/', 'Home', Home], ['/dashboard', 'Dashboard', LayoutDashboard], ['/transactions', 'Transactions', Receipt], ['/payment-links', 'Payment Links', Link2], ['/api-keys', 'API Keys', KeyRound], ['/webhooks', 'Webhooks', Send]];
 const SET = [['/integrations', 'Integrations', PlugZap], ['/profile', 'Profile', UserCircle], ['/docs', 'Documentation', BookOpen], ['/status', 'System Status', Activity]];
 export default function Sidebar({ open, onClose }) {
-  const user = profile;
+  const user = useProfile();
   const item = ([to, label, Icon]) => (
     <NavLink key={to} to={to} end onClick={onClose} className={({ isActive }) => 'sidebar-item' + (isActive ? ' active' : '')}><Icon size={16} /> {label}</NavLink>);
   return (<>
