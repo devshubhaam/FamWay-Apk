@@ -5,6 +5,8 @@ permissions:
 jobs:
   apk:
     runs-on: ubuntu-latest
+    env:
+      VITE_USE_MOCK_AUTH: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
