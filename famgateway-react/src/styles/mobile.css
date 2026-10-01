@@ -1,0 +1,13 @@
+/* Additions for React/Android. The original snapshot had its open-state rules removed (JS-driven), so they live here. */
+.sidebar.is-open{transform:translateX(0)}
+.sidebar{padding-top:env(safe-area-inset-top)}
+.mobile-header{padding-top:calc(18px + env(safe-area-inset-top))}
+.main-content{padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+.btn,.sidebar-item,.time-pill,.chart-toggle-btn{min-height:40px}
+.tx-table{min-width:640px}.table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch}
+input,select,textarea{font-size:16px} /* prevents zoom on focus */
+.fg-banner{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:16px}
+.fg-login{min-height:100dvh;display:grid;place-items:center;padding:20px}
+.fg-login form{width:100%;max-width:380px;display:grid;gap:12px}
+.fg-login input{padding:12px 14px;border:1px solid var(--color-hairline);border-radius:10px}
+@media (min-width:961px){.mobile-header{display:none}}

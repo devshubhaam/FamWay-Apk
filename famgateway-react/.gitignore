@@ -1,0 +1,6 @@
+node_modules
+dist
+.env
+*.keystore
+android/keystore.properties
+android/app/build
