@@ -1,3 +1,7 @@
 {"appId":"com.example.paymentdashboard","appName":"FamGateway","webDir":"dist",
+"server":{"androidScheme":"https"},
 "android":{"allowMixedContent":false},
-"plugins":{"SplashScreen":{"launchShowDuration":1200,"backgroundColor":"#0f172a"}}}
+"plugins":{
+"SplashScreen":{"launchShowDuration":1200,"backgroundColor":"#0f172a"},
+"CapacitorHttp":{"enabled":true},
+"CapacitorPasskey":{"origin":"https://REPLACED-BY-CI","autoShim":true,"domains":["REPLACED-BY-CI"]}}}

@@ -1,7 +1,9 @@
 // Pure validators. Each returns { fieldName: 'message' } in field order; empty object = valid.
+// Mirrors the backend rules (backend/src/utils/validators.js) - the server is the authority.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const PHONE_RE = /^[0-9]{10}$/; // same rule as the old register form
-export const PASSWORD_MIN = 6;  // same rule as the old register form
+const PHONE_RE = /^[0-9]{10}$/;
+export const PASSWORD_MIN = 8;
+export const PASSWORD_MAX = 72;
 
 export function validateLogin({ email, password }) {
   const e = {};
@@ -21,6 +23,8 @@ export function validateRegister({ name, email, phone, password, confirmPassword
   else if (!PHONE_RE.test(phone)) e.phone = 'Mobile number must be exactly 10 digits.';
   if (!password) e.password = 'Create a password.';
   else if (password.length < PASSWORD_MIN) e.password = `Password must be at least ${PASSWORD_MIN} characters.`;
+  else if (password.length > PASSWORD_MAX) e.password = `Password must be at most ${PASSWORD_MAX} characters.`;
+  else if (!/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) e.password = 'Use at least one letter and one number.';
   if (!confirmPassword) e.confirmPassword = 'Repeat your password.';
   else if (confirmPassword !== password) e.confirmPassword = 'Passwords do not match.';
   return e;

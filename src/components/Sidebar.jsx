@@ -3,6 +3,7 @@ import { Info, LayoutDashboard, Receipt, Link2, KeyRound, Send, PlugZap, UserCir
 import logo from '../assets/logo.png';
 import { useProfile } from '../hooks/useProfile';
 import { useAuth } from '../hooks/useAuth';
+import PasskeySetup from './PasskeySetup';
 const MAIN = [['/about', 'About Us', Info], ['/dashboard', 'Dashboard', LayoutDashboard], ['/transactions', 'Transactions', Receipt], ['/payment-links', 'Payment Links', Link2], ['/api-keys', 'API Keys', KeyRound], ['/webhooks', 'Webhooks', Send]];
 const SET = [['/integrations', 'Integrations', PlugZap], ['/profile', 'Profile', UserCircle], ['/docs', 'Documentation', BookOpen], ['/status', 'System Status', Activity]];
 export default function Sidebar({ open, onClose }) {
@@ -34,6 +35,7 @@ export default function Sidebar({ open, onClose }) {
         <div className="sidebar-mid-pill" title="Click to copy Merchant ID" onClick={() => navigator.clipboard?.writeText(user.merchantId)}>
           <span className="sidebar-mid-label"><span className="sidebar-mid-dot" /> MID: <code>{user.merchantId}</code></span>
           <span className="sidebar-mid-copy-btn"><Copy size={12} /></span></div>
+        <PasskeySetup />
         <a href="#" role="button" className="sidebar-logout" onClick={handleLogout}><LogOut size={15} /> Logout</a>
       </div>
     </aside>

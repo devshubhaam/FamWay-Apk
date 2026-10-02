@@ -1,0 +1,8 @@
+.fg-auth .fg-auth-social { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; margin-bottom: 10px;
+  border: 1px solid var(--a-line); border-radius: 12px; background: #fff; color: var(--a-ink); font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s, border-color .15s; }
+.fg-auth .fg-auth-social:hover:not(:disabled) { background: #f8fafc; border-color: #cbd5e1; }
+.fg-auth .fg-auth-social:disabled { opacity: .6; cursor: not-allowed; }
+.fg-auth .fg-auth-social-hint { margin: -4px 0 10px; text-align: center; font-size: 12px; color: var(--a-mute-2); }
+.fg-auth .fg-auth-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; font-size: 12px; color: var(--a-mute-2); text-transform: lowercase; }
+.fg-auth .fg-auth-divider::before, .fg-auth .fg-auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--a-line); }
+.fg-auth .fg-auth-link-btn { background: none; border: 0; padding: 0; margin-left: 6px; color: var(--a-primary); font-weight: 600; cursor: pointer; text-decoration: underline; font-size: inherit; }
