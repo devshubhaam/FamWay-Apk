@@ -1,9 +1,9 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Home, LayoutDashboard, Receipt, Link2, KeyRound, Send, PlugZap, UserCircle, BookOpen, Activity, X, Copy, LogOut } from 'lucide-react';
+import { Info, LayoutDashboard, Receipt, Link2, KeyRound, Send, PlugZap, UserCircle, BookOpen, Activity, X, Copy, LogOut } from 'lucide-react';
 import logo from '../assets/logo.png';
 import { useProfile } from '../hooks/useProfile';
 import { useAuth } from '../hooks/useAuth';
-const MAIN = [['/', 'Home', Home], ['/dashboard', 'Dashboard', LayoutDashboard], ['/transactions', 'Transactions', Receipt], ['/payment-links', 'Payment Links', Link2], ['/api-keys', 'API Keys', KeyRound], ['/webhooks', 'Webhooks', Send]];
+const MAIN = [['/about', 'About Us', Info], ['/dashboard', 'Dashboard', LayoutDashboard], ['/transactions', 'Transactions', Receipt], ['/payment-links', 'Payment Links', Link2], ['/api-keys', 'API Keys', KeyRound], ['/webhooks', 'Webhooks', Send]];
 const SET = [['/integrations', 'Integrations', PlugZap], ['/profile', 'Profile', UserCircle], ['/docs', 'Documentation', BookOpen], ['/status', 'System Status', Activity]];
 export default function Sidebar({ open, onClose }) {
   const user = useProfile();
