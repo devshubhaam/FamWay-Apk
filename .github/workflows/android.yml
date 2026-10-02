@@ -49,6 +49,25 @@ jobs:
               open(p,'w').write(s)
           PY
       - run: npx cap sync android
+            - name: Diagnose Android Passkey configuration
+        run: |
+          echo "===== CAPACITOR PASSKEY CONFIG ====="
+          node -e "const c=require('./capacitor.config.json'); console.log(JSON.stringify(c.plugins.CapacitorPasskey,null,2))"
+
+          echo "===== ANDROID PASSKEY FILES ====="
+          find android/app/src/main -type f \
+            \( -name 'strings.xml' -o -name 'AndroidManifest.xml' \) \
+            -print
+
+          echo "===== PASSKEY / ASSET LINKS ====="
+          grep -Rni -E 'asset_statements|assetlinks|passkey|CapacitorPasskey' \
+            android/app/src/main 2>/dev/null || true
+
+          echo "===== SIGNING CERTIFICATE ====="
+          keytool -list -v \
+            -keystore ~/.android/debug.keystore \
+            -alias androiddebugkey \
+            -storepass android | grep -E "SHA256"
       - name: Print APK signing fingerprint (use for ANDROID_CERT_SHA256 / PASSKEY_ANDROID_ORIGINS)
         run: keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android | grep -E "SHA256" || true
       - name: Debug APK
