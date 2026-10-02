@@ -1,11 +1,20 @@
-import { NavLink } from 'react-router-dom';
-import { Home, LayoutDashboard, Receipt, Link2, KeyRound, Send, PlugZap, UserCircle, BookOpen, Activity, X, Copy } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Home, LayoutDashboard, Receipt, Link2, KeyRound, Send, PlugZap, UserCircle, BookOpen, Activity, X, Copy, LogOut } from 'lucide-react';
 import logo from '../assets/logo.png';
 import { useProfile } from '../hooks/useProfile';
+import { useAuth } from '../hooks/useAuth';
 const MAIN = [['/', 'Home', Home], ['/dashboard', 'Dashboard', LayoutDashboard], ['/transactions', 'Transactions', Receipt], ['/payment-links', 'Payment Links', Link2], ['/api-keys', 'API Keys', KeyRound], ['/webhooks', 'Webhooks', Send]];
 const SET = [['/integrations', 'Integrations', PlugZap], ['/profile', 'Profile', UserCircle], ['/docs', 'Documentation', BookOpen], ['/status', 'System Status', Activity]];
 export default function Sidebar({ open, onClose }) {
   const user = useProfile();
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    onClose?.();
+    try { await signOut(); } catch { /* signOut clears user state even if the request fails */ }
+    navigate('/login', { replace: true });
+  };
   const item = ([to, label, Icon]) => (
     <NavLink key={to} to={to} end onClick={onClose} className={({ isActive }) => 'sidebar-item' + (isActive ? ' active' : '')}><Icon size={16} /> {label}</NavLink>);
   return (<>
@@ -25,6 +34,7 @@ export default function Sidebar({ open, onClose }) {
         <div className="sidebar-mid-pill" title="Click to copy Merchant ID" onClick={() => navigator.clipboard?.writeText(user.merchantId)}>
           <span className="sidebar-mid-label"><span className="sidebar-mid-dot" /> MID: <code>{user.merchantId}</code></span>
           <span className="sidebar-mid-copy-btn"><Copy size={12} /></span></div>
+        <a href="#" role="button" className="sidebar-logout" onClick={handleLogout}><LogOut size={15} /> Logout</a>
       </div>
     </aside>
     {open && <div className="sidebar-overlay" onClick={onClose} />}
