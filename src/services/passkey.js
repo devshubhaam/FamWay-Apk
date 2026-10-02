@@ -7,8 +7,19 @@ import { AUTH_ENDPOINTS as EP } from './config';
 // the server verifies the result. On Android the @capgo/capacitor-passkey shim routes navigator.credentials.* to
 // Android Credential Manager (needs Digital Asset Links, see backend README).
 const isNative = () => Capacitor.isNativePlatform();
-let shim;
-const ensureShim = async () => { if (isNative()) { shim ||= import('@capgo/capacitor-passkey/auto'); await shim; } };
+
+// Import the package's MAIN entry (always resolvable by Vite/Rollup) instead of the "/auto" subpath,
+// which is not exported by the installed version and broke the build.
+let shimPromise;
+const ensureShim = async () => {
+  if (!isNative()) return;
+  shimPromise ||= (async () => {
+    const mod = await import('@capgo/capacitor-passkey');
+    const plugin = mod.CapacitorPasskey || mod.default;
+    if (plugin && typeof plugin.autoShimWebAuthn === 'function') await plugin.autoShimWebAuthn();
+  })().catch((e) => { shimPromise = undefined; console.warn('Passkey shim init failed', e); });
+  await shimPromise;
+};
 
 export const passkeyAvailable = () => isNative() || browserSupportsWebAuthn();
 export const isCancelled = (e) => e?.name === 'NotAllowedError' || e?.name === 'AbortError';
