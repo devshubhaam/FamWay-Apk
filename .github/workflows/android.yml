@@ -1,4 +1,4 @@
-kkkname: Build Android APK
+name: Build Android APK
 on: { workflow_dispatch: {}, push: { branches: [main] } }
 permissions:
   contents: write
@@ -19,8 +19,8 @@ jobs:
           case "$VITE_API_BASE_URL" in https://*) ;; *) echo "VITE_API_BASE_URL must be https://"; exit 1;; esac
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: 17 }
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: 21 }
       # Passkeys are bound to the APK signing certificate (Digital Asset Links). A fresh debug keystore on every
       # runner would change the fingerprint each build, so restore a fixed one from a secret.
       - name: Restore fixed debug keystore (optional but required for passkeys)
