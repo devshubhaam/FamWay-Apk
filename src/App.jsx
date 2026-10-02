@@ -2,7 +2,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout';
 import AuthLayout from './layouts/AuthLayout';
 import RequireAuth from './components/RequireAuth';
-import Home from './pages/Home';
+import RootRedirect from './components/RootRedirect';
+import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -15,8 +16,9 @@ import Profile from './pages/Profile';
 import Placeholder from './pages/Placeholder';
 const PAGES = { docs: 'Documentation', status: 'System Status' };
 export default function App() {
-  return (<Routes><Route index element={<Home />} />
+  return (<Routes><Route path="about" element={<About />} />
     <Route element={<AuthLayout />}>
+      <Route index element={<RootRedirect />} />
       <Route path="login" element={<Login />} /><Route path="register" element={<Register />} />
       <Route element={<RequireAuth />}>
         <Route element={<AppLayout />}><Route path="dashboard" element={<Dashboard />} /><Route path="transactions" element={<Transactions />} /><Route path="payment-links" element={<PaymentLinks />} /><Route path="api-keys" element={<ApiKeys />} /><Route path="webhooks" element={<Webhooks />} /><Route path="integrations" element={<Integrations />} /><Route path="profile" element={<Profile />} />
